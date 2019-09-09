@@ -1,0 +1,244 @@
+{
+  "GetPlayerId": [],
+  "GetAllCollisions": [],
+  "CreateCollisionBox": [1],
+  "CreateCollisionSphere": [1],
+  "DestroyCollision": [],
+  "SetCameraShakeLocation": [],
+  "StopCameraFade": [],
+  "ShowWeaponHUD": [],
+  "DrawCircle3D": [],
+  "DrawRect": [],
+  "GetPlayerBoneNames": ["head"],
+  "GetScreenSize": [1920, 1080],
+  "PlayCameraShake": [],
+  "SetWaypoint": [],
+  "GetChatLocation": [
+    0,
+    0,
+    0
+  ],
+  "SetCameraShakeFOV": [],
+  "SetTextBoxAlignment": [],
+  "ShowHealthHUD": [],
+  "ShowMouseCursor": [],
+  "ScreenToWorld": [],
+  "DrawBox": [],
+  "SetSunRadius": [],
+  "GetAllPlayersInBox": [],
+  "SetMoonShine": [],
+  "GetPlayerRotationRate": [],
+  "GetMouseLocation": [
+    0,
+    0,
+    0
+  ],
+  "GetPlayerCameraUpVector": [],
+  "SetTextBoxText": [],
+  "CreateTextBox": [1],
+  "SetStarsBrightness": [],
+  "WorldToScreen": [],
+  "IsChatFocus": [
+    false
+  ],
+  "SetSunAzimuth": [],
+  "CreateSound": [1],
+  "SetOceanColor": [],
+  "GetMouseInputDelta": [],
+  "IsPlayerInVehicle": [
+    false
+  ],
+  "SetDrawScale": [],
+  "SetSkyRotationSpeed": [],
+  "GetAllSounds": [[]],
+  "LineTrace": [],
+  "ShowChat": [],
+  "SetTextBoxAnchors": [],
+  "CreateSound3D": [],
+  "SetPlayerOutline": [],
+  "IsValidSound": [
+    false
+  ],
+  "SetSoundVolume": [],
+  "SetObjectCastShadow": [],
+  "DrawLine": [],
+  "SetFogDensity": [],
+  "GetPlayerBoneLocation": [
+    0,
+    0,
+    0
+  ],
+  "EnableObjectHitEvents": [],
+  "GetSoundCount": [0],
+  "DestroyTextBox": [],
+  "GetInputAxisValue": [],
+  "AddPlayerChat": [],
+  "DestroySound": [],
+  "SetPlayerRotationRate": [],
+  "GetPlayerCameraLocation": [
+    0,
+    0,
+    0
+  ],
+  "GetTerrainHeight": [],
+  "GetPlayerCameraRightVector": [],
+  "SetObjectOutline": [],
+  "SetDrawColor": [],
+  "DrawLine3D": [],
+  "SetChatLocation": [],
+  "SetObjectEditable": [],
+  "SetCameraShakeRotation": [],
+  "DrawSolidBox3D": [],
+  "SetSkyLightIntensity": [],
+  "GetTextSize": [1],
+  "GetPlayerCameraRotation": [
+    0,
+    0,
+    0
+  ],
+  "GetStreamedLights": [[]],
+  "DrawText": [],
+  "SetTime": [],
+  "IsMouseCursorEnabled": [
+    false
+  ],
+  "SetMoonRadius": [],
+  "DeprojectMouseLocationToWorld": [],
+  "SetMoonLightIntensity": [],
+  "SetSunLightIntensity": [],
+  "SetSunShine": [],
+  "GetPing": [1000],
+  "GetStreamedNPC": [[]],
+  "SetInputMode": [],
+  "GetLightLocation": [
+    0,
+    0,
+    0
+  ],
+  "SetNPCOutline": [],
+  "SetWeather": [],
+  "GetTime": [0],
+  "GetObjectBoundingBox": [0,0,0,1,1,1],
+  "GetObjectSize": [1,1,1],
+  "GetPickupLocation": [
+    0,
+    0,
+    0
+  ],
+  "GetAllPlayersInSphere": [[]],
+  "GetStreamedObjects": [[]],
+  "GetObjectModelGroup": [""],
+  "GetObjectRotation": [
+    0,
+    0,
+    0
+  ],
+  "GetStreamedPlayers": [[]],
+  "GetPlayerHeading": [0],
+  "GetStreamedPickups": [[]],
+  "StopCameraShake": [],
+  "StartCameraFade": [],
+  "SetSkySaturation": [],
+  "GetMouseHitEntity": [false],
+  "GetPlayerFOV": [],
+  "SetPlayerCameraRotation": [],
+  "VectorToRotation": [],
+  "SetPlayerCameraLocation": [],
+  "SetPlayerFOV": [],
+  "GetPlayerCameraViewDistance": [0],
+  "SetObjectEditorSpeed": [],
+  "InvokeDamageFX": [],
+  "IsPlayerInMainMenu": [
+    false
+  ],
+  "GetDistanceSquared3D": [],
+  "SetPlayerCameraViewDistance": [],
+  "DrawPoint3D": [],
+  "NormalizeVector": [],
+  "RotationToVector": [],
+  "GetObjectMass": [0],
+  "GetMouseHitLocation": [
+    0,
+    0,
+    0
+  ],
+  "SetSoundPitch": [],
+  "GetSoundVolume": [1],
+  "SetSoundFadeOut": [],
+  "GetSoundPitch": [0],
+  "IsFloatNearlyZero": [
+    false
+  ],
+  "GetSoundDuration": [0],
+  "GetVehicleRightVector": [1,0,0],
+  "GetVehicleDoorLocation": [
+    0,
+    0,
+    0
+  ],
+  "GetVehicleForwardVector": [0,1,0],
+  "GetVehicleVelocity": [0,0,0],
+  "IsVehicleHornActive": [
+    false
+  ],
+  "SetSoundFadeIn": [],
+  "IsVehicleInAir": [
+    false
+  ],
+  "GetVehicleWheelSteerAngle": [0],
+  "IsVehicleSeatOccupied": [
+    false
+  ],
+  "IsVehicleInWater": [
+    false
+  ],
+  "IsVehicleWheelInAir": [
+    false
+  ],
+  "GetVehicleEngineRPM": [0],
+  "GetVehicleForwardSpeed": [0],
+  "GetWebVisibility": [false],
+  "GetVehicleBoundingBox": [0,0,0,1,1,1],
+  "LoadWebFile": [],
+  "GetAllWebUI": [[]],
+  "DestroyWebUI": [],
+  "SetWebVisibility": [],
+  "SetWebRotation": [],
+  "ExecuteWebJS": [],
+  "GetText3DLocation": [
+    0,
+    0,
+    0
+  ],
+  "GetStreamedText3D": [[]],
+  "GetVehicleWheelSurface": [""],
+  "GetStreamedVehicles": [[]],
+  "SetWebURL": [],
+  "SetWebLocation": [],
+  "SetWebSize": [],
+  "SetWebAnchors": [],
+  "GetVehicleUpVector": [0,0,1],
+  "SetWebAlignment": [],
+  "GetWebUICount": [0],
+  "SetIgnoreMoveInput": [],
+  "CreateWebUI3D": [1],
+  "CreateRemoteWebUI3D": [1],
+  "SetIgnoreLookInput": [],
+  "GetPlayerCameraForwardVector": [0,1,0],
+  "IsShiftPressed": [
+    false
+  ],
+  "IsCtrlPressed": [
+    false
+  ],
+  "CreateWebUI": [1],
+  "CreateRemoteWebUI": [1],
+  "ReplaceObjectModelMesh": [],
+  "DoesPakExist": [],
+  "LoadPak": [],
+  "ConnectToServer": [],
+  "AddRemoteEvent": [],
+  "CallRemoteEvent": [],
+  "SetOceanWaterLevel": [],
+  "ResetOceanColor": []
+}

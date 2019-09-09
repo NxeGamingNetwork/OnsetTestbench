@@ -1,0 +1,117 @@
+{
+  "Delay": [],
+  "GetTimerCount": [0],
+  "GetAllTimers": [[]],
+  "IsValidTimer": [
+    false
+  ],
+  "CreateTimer": [1],
+  "CreateCountTimer": [1],
+  "DestroyTimer": [],
+  "PauseTimer": [],
+  "UnpauseTimer": [],
+  "GetTimerRemainingTime": [0],
+  "AddFunctionExport": [],
+  "ImportPackage": [],
+  "GetTimeSeconds": [],
+  "GetTickCount": [],
+  "GetDeltaSeconds": [],
+  "RGBA": [],
+  "RGB": [],
+  "HexToRGBA": [],
+  "Random": [1],
+  "RandomFloat": [1],
+  "Base64Encode": [""],
+  "Base64Decode": [""],
+  "GetDistance2D": [0],
+  "GetDistance3D": [0],
+  "GetGameVersion": [0],
+  "GetPlayerCount": [0],
+  "GetPickupCount": [0],
+  "GetText3DCount": [0],
+  "GetVehicleCount": [0],
+  "GetObjectCount": [0],
+  "GetLightCount": [0],
+  "GetNPCCount": [0],
+  "GetNPCLocation": [
+    0,
+    0,
+    0
+  ],
+  "GetObjectLocation": [
+    0,
+    0,
+    0
+  ],
+  "GetObjectScale": [
+    0,
+    0,
+    0
+  ],
+  "GetObjectModel": [1],
+  "GetObjectRotation": [
+    0,
+    0,
+    0
+  ],
+  "GetPlayerVehicle": [0],
+  "GetPlayerHealth": [100],
+  "GetPlayerArmor": [0],
+  "GetPlayerWeapon": [1],
+  "GetPlayerMovementMode": [1],
+  "GetPlayerMovementSpeed": [1],
+  "GetPlayerLocation": [
+    0,
+    0,
+    0
+  ],
+  "IsPlayerAiming": [
+    false
+  ],
+  "IsPlayerReloading": [
+    false
+  ],
+  "IsPlayerTalking": [
+    false
+  ],
+  "IsPlayerDead": [
+    false
+  ],
+  "GetVehicleModel": [1],
+  "GetVehicleLocation": [
+    0,
+    0,
+    0
+  ],
+  "GetVehicleHoodRatio": [0],
+  "GetVehicleGear": [1],
+  "GetVehicleRotation": [
+    0,
+    0,
+    0
+  ],
+  "GetVehicleLightState": [false],
+  "GetVehicleHealth": [100],
+  "GetVehicleTrunkRatio": [0],
+  "IsValidLight": [
+    false
+  ],
+  "IsValidNPC": [
+    false
+  ],
+  "IsValidObject": [
+    false
+  ],
+  "IsValidPickup": [
+    false
+  ],
+  "IsValidPlayer": [
+    false
+  ],
+  "IsValidText3D": [
+    false
+  ],
+  "IsValidVehicle": [
+    false
+  ]
+}
