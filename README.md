@@ -1,5 +1,5 @@
 # OnsetTestbench
-[WIP] An Onset script emulator to kind of test scripts before the release
+[WIP] An Onset script emulator to kind of test scripts before the release of the game.
 
 ## Usage
 Just run it (`java -jar OnsetTestbench-1.0.jar`) in your server folder.
