@@ -4,6 +4,7 @@ import com.google.gson.JsonParser;
 import net.onfirenetwork.testbench.lua.LuaEnv;
 import org.luaj.vm2.LuaFunction;
 import org.luaj.vm2.LuaString;
+import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 
 import java.io.InputStreamReader;
@@ -28,11 +29,15 @@ public class ServerPackageEnv extends LuaEnv {
             return result();
         });
         add("CallEvent", args -> {
-            List<LuaValue> params = new ArrayList<>();
-            for(int i=2; !args.isnil(i); i++){
-                params.add(args.arg(i));
+            LuaTable varargs = args.arg(2).isnil()?new LuaTable():(LuaTable) args.arg(2);
+            if(varargs.length() == 1 && varargs.get(1).istable()){
+                varargs = (LuaTable) varargs.get(1);
             }
-            pack.getServer().getLocalEventSystem().callEvent(args.tojstring(1), params.toArray(new LuaValue[0]));
+            LuaValue[] params = new LuaValue[varargs.length()];
+            for(int i=1; i<=params.length; i++){
+                params[i-1] = varargs.get(i);
+            }
+            pack.getServer().getLocalEventSystem().callEvent(args.tojstring(1), params);
             return result();
         });
         add("GetPackageName", args -> result(LuaString.valueOf(pack.getName())));

@@ -47,11 +47,15 @@ public class MariaDBPlugin implements ServerPlugin {
         });
         env.add("mariadb_prepare", args -> {
             Handle handle = connections.get(args.toint(1));
-            List<LuaValue> values = new ArrayList<>();
-            for(int i=3; !args.isnil(i); i++){
-                values.add(args.arg(i));
+            LuaTable varargs = args.arg(3).isnil()?new LuaTable():(LuaTable) args.arg(3);
+            if(varargs.length() == 1 && varargs.get(1).istable()){
+                varargs = (LuaTable) varargs.get(1);
             }
-            PreparedQuery prepared = new PreparedQuery(args.tojstring(2), values.toArray(new LuaValue[0]));
+            LuaValue[] values = new LuaValue[varargs.length()];
+            for(int i=1; i<=values.length; i++){
+                values[i-1] = varargs.get(i);
+            }
+            PreparedQuery prepared = new PreparedQuery(args.tojstring(2), values);
             String id = "p-"+UUID.randomUUID();
             handle.preparedQueries.put(id, prepared);
             return result(LuaString.valueOf(id));
@@ -80,19 +84,20 @@ public class MariaDBPlugin implements ServerPlugin {
             results.put(id, result);
             current = id;
             LuaFunction callback = (LuaFunction) args.arg(3);
-            List<LuaValue> pass = new ArrayList<>();
-            for(int i=4; !args.isnil(i); i++){
-                pass.add(args.arg(i));
+            LuaTable varargs = args.arg(4).isnil()?new LuaTable():(LuaTable) args.arg(4);
+            LuaValue[] pass = new LuaValue[varargs.length()];
+            for(int i=1; i<=pass.length; i++){
+                pass[i-1] = varargs.get(i);
             }
-            switch (pass.size()){
+            switch (pass.length){
                 case 1:
-                    callback.call(pass.get(0));
+                    callback.call(pass[0]);
                     break;
                 case 2:
-                    callback.call(pass.get(0), pass.get(1));
+                    callback.call(pass[0], pass[1]);
                     break;
                 case 3:
-                    callback.call(pass.get(0), pass.get(1), pass.get(2));
+                    callback.call(pass[0], pass[1], pass[2]);
                     break;
                 default:
                     callback.call();
@@ -160,12 +165,42 @@ public class MariaDBPlugin implements ServerPlugin {
                 return result(LuaInteger.valueOf(0));
             return result(LuaString.valueOf(results.get(current).columnNames[args.toint(1)-1]));
         });
-        env.add("mariadb_get_value_index", args -> result(LuaString.valueOf((String) getValue(args.toint(1), args.toint(2)))));
-        env.add("mariadb_get_value_index_int", args -> result(LuaInteger.valueOf((int) getValue(args.toint(1), args.toint(2)))));
-        env.add("mariadb_get_value_index_float", args -> result(LuaNumber.valueOf((double) getValue(args.toint(1), args.toint(2)))));
-        env.add("mariadb_get_value_name", args -> result(LuaString.valueOf((String) getValue(args.toint(1), args.tojstring(2)))));
-        env.add("mariadb_get_value_name_int", args -> result(LuaInteger.valueOf((int) getValue(args.toint(1), args.tojstring(2)))));
-        env.add("mariadb_get_value_name_float", args -> result(LuaNumber.valueOf((double) getValue(args.toint(1), args.tojstring(2)))));
+        env.add("mariadb_get_value_index", args -> {
+            Object value = getValue(args.toint(1), args.toint(2));
+            if(value == null)
+                return result(LuaValue.NIL);
+            return result(LuaString.valueOf((String) value));
+        });
+        env.add("mariadb_get_value_index_int", args -> {
+            Object value = getValue(args.toint(1), args.toint(2));
+            if(value == null)
+                return result(LuaValue.NIL);
+            return result(LuaInteger.valueOf((int) value));
+        });
+        env.add("mariadb_get_value_index_float", args -> {
+            Object value = getValue(args.toint(1), args.toint(2));
+            if(value == null)
+                return result(LuaValue.NIL);
+            return result(LuaNumber.valueOf((float) value));
+        });
+        env.add("mariadb_get_value_name", args -> {
+            Object value = getValue(args.toint(1), args.tojstring(2));
+            if(value == null)
+                return result(LuaValue.NIL);
+            return result(LuaString.valueOf((String) value));
+        });
+        env.add("mariadb_get_value_name_int", args -> {
+            Object value = getValue(args.toint(1), args.tojstring(2));
+            if(value == null)
+                return result(LuaValue.NIL);
+            return result(LuaInteger.valueOf((int) value));
+        });
+        env.add("mariadb_get_value_name_float", args -> {
+            Object value = getValue(args.toint(1), args.tojstring(2));
+            if(value == null)
+                return result(LuaValue.NIL);
+            return result(LuaNumber.valueOf((float) value));
+        });
         env.add("mariadb_get_insert_id", args -> {
             Handle handle = connections.get(args.toint(1));
             ResultSet rs = handle.sql.read("SELECT LAST_INSERT_ID();");
@@ -254,13 +289,13 @@ public class MariaDBPlugin implements ServerPlugin {
                 if(values[i].isboolean()){
                     this.values[i] = values[i].toboolean();
                 }
-                if(values[i].tonumber().isint()){
+                if(values[i].isint()){
                     this.values[i] = values[i].toint();
                 }
-                if(values[i].tonumber().isnumber()){
+                if(values[i].isnumber()){
                     this.values[i] = values[i].todouble();
                 }
-                if(values[i].tonumber().isstring()){
+                if(values[i].isstring()){
                     this.values[i] = values[i].tojstring();
                 }
             }
