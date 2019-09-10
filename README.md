@@ -14,7 +14,7 @@ It has to be called bench.json.
 ```json
 {
   "server_folder": ".",
-  "ui_enabled": true,
+  "ui_enabled": false,
   "ui_port": 2255
 }
 ```
