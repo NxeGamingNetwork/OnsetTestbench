@@ -1,6 +1,7 @@
 package net.onfirenetwork.testbench.client;
 
 import com.google.gson.JsonParser;
+import net.onfirenetwork.testbench.client.webui.WebUI;
 import net.onfirenetwork.testbench.lua.LuaEnv;
 import org.luaj.vm2.LuaFunction;
 import org.luaj.vm2.LuaString;
@@ -35,6 +36,46 @@ public class ClientPackageEnv extends LuaEnv {
             return result();
         });
         add("GetPackageName", args -> result(LuaString.valueOf(pack.getName())));
+        add("CreateWebUI", args -> {
+            WebUI ui = pack.getClient().getWebUIManager().createWebUI(
+                    args.toint(1),
+                    args.toint(2),
+                    args.toint(3),
+                    args.toint(4)
+            );
+            return result(LuaValue.valueOf(ui.getId()));
+        });
+        add("DestroyWebUI", args -> {
+            WebUI ui = pack.getClient().getWebUIManager().getWebUI(args.toint(1));
+            if(ui != null)
+                ui.destroy();
+            return result();
+        });
+        add("SetWebSize", args -> {
+            WebUI ui = pack.getClient().getWebUIManager().getWebUI(args.toint(1));
+            if(ui != null)
+                ui.setSize(args.toint(2), args.toint(3));
+            return result();
+        });
+        add("SetWebLocation", args -> {
+            WebUI ui = pack.getClient().getWebUIManager().getWebUI(args.toint(1));
+            if(ui != null)
+                ui.setLocation(args.toint(2), args.toint(3));
+            return result();
+        });
+        add("LoadWebFile", args -> {
+            WebUI ui = pack.getClient().getWebUIManager().getWebUI(args.toint(1));
+            if(ui != null)
+                ui.loadFile(args.tojstring(2));
+            return result();
+        });
+        add("ExecuteWebJS", args -> {
+            WebUI ui = pack.getClient().getWebUIManager().getWebUI(args.toint(1));
+            if(ui != null)
+                ui.execute(args.tojstring(2));
+            return result();
+        });
+        whitelist("print");
     }
 
 }

@@ -71,7 +71,14 @@ public class LuaEnv {
     }
 
     public void whitelist(String method){
-        LuaTable env = new LuaTable();
+        if(!sandbox)
+            return;
+        LuaTable env;
+        if(globals.get("env").isnil()){
+            env = new LuaTable();
+        }else{
+            env = (LuaTable) globals.get("env");
+        }
         env.set(method, globals.get(method));
         globals.set("env", env);
     }

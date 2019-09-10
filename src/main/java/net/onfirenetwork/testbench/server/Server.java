@@ -26,10 +26,10 @@ public class Server {
 
     public Server(Instance instance){
         this.instance = instance;
-        if(instance.getConfig().getPlugins().contains("mariadb")){
+        if(instance.getServerConfig().getPlugins().contains("mariadb")){
             plugins.add(new MariaDBPlugin());
         }
-        for(String packageName : instance.getConfig().getPackages()){
+        for(String packageName : instance.getServerConfig().getPackages()){
             packageMap.put(packageName, new ServerPackage(packageName, this));
         }
     }
@@ -38,11 +38,11 @@ public class Server {
         started = true;
         for(ServerPlugin plugin : plugins){
             plugin.enable();
-            for(String packageName : instance.getConfig().getPackages()){
+            for(String packageName : instance.getServerConfig().getPackages()){
                 plugin.enablePackage(packageName, packageMap.get(packageName).getEnv());
             }
         }
-        for(String packageName : instance.getConfig().getPackages()){
+        for(String packageName : instance.getServerConfig().getPackages()){
             packageMap.get(packageName).run();
         }
     }
@@ -50,7 +50,7 @@ public class Server {
     public void stop(){
         started = false;
         for(ServerPlugin plugin : plugins){
-            for(String packageName : instance.getConfig().getPackages()){
+            for(String packageName : instance.getServerConfig().getPackages()){
                 plugin.disablePackage(packageName, packageMap.get(packageName).getEnv());
             }
             plugin.disable();
