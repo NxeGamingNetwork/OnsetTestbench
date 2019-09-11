@@ -15,12 +15,18 @@ It has to be called bench.json.
 {
   "server_folder": ".",
   "ui_enabled": false,
-  "ui_port": 2255
+  "ui_port": 2255,
+  "clients": [
+    {
+      "steam_id": "76561198114435069",
+      "name": "Test Client"
+    }
+  ]
 }
 ```
 
 ## Web UI Emulator Mode
-When the testbench is started in emulator mode it won't start directly. Instead you have to open a link which will be used to see the web ui's of the client. As soon as you open it the server and one client gets started. As of now in emulator mode only one client at a time is supported.
+When the testbench is started in emulator mode it won't start directly. Instead you have to open a link which will be used to see the web ui's of the client. As soon as you open it the server and one client gets started. As of now the emulator only emulates the web ui's for the first client that joins.
 
 ## Implemented functions
 Even though every function that is documented in the Onset wiki exists, not all of them are implemented. Most of them just return a static value that might even not be of the correct data type. The following function were fully implemented and can be used safely.
