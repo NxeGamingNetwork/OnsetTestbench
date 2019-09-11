@@ -34,6 +34,25 @@ Even though every function that is documented in the Onset wiki exists, not all 
 - GetAllPlayers
 - GetPlayerName
 - GetPlayerSteamId
+#### MariaDB Plugin
+- mariadb_connect
+- mariadb_close
+- mariadb_prepare
+- mariadb_query
+- mariadb_async_query
+- mariadb_await_query
+- mariadb_set_active_result
+- mariadb_delete_result
+- mariadb_get_row_count
+- mariadb_get_field_count
+- mariadb_get_field_name
+- mariadb_get_value_index
+- mariadb_get_value_index_int
+- mariadb_get_value_index_float
+- mariadb_get_value_name
+- mariadb_get_value_name_int
+- mariadb_get_value_name_float
+- mariadb_get_insert_id
 ### Client
 - GetPackageName
 - AddEvent
