@@ -5,9 +5,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import net.onfirenetwork.testbench.Instance;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,6 +28,7 @@ public class InstanceConfig {
     boolean uiEnabled = false;
     @SerializedName("ui_port")
     int uiPort = 2255;
+    ConfigClient[] clients = {new ConfigClient("76561198114435069", "Test Client")};
 
     public void save(File file){
         try {
@@ -55,6 +57,16 @@ public class InstanceConfig {
             e.printStackTrace();
         }
         return gson.fromJson(sb.toString(), InstanceConfig.class);
+    }
+
+    @FieldDefaults(level = AccessLevel.PRIVATE)
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class ConfigClient {
+        @SerializedName("steam_id")
+        String steamId;
+        String name;
     }
 
 }

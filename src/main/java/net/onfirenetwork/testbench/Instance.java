@@ -73,7 +73,9 @@ public class Instance {
     private void internalStart(){
         new Thread(()->{
             server.start();
-            join("1234", "Jan");
+            for(InstanceConfig.ConfigClient configClient : config.getClients()){
+                join(configClient.getSteamId(), configClient.getName());
+            }
             long startTime = 0;
             while (!exitRequested){
                 float delta = ((float)(System.currentTimeMillis() - startTime))/1000f;
