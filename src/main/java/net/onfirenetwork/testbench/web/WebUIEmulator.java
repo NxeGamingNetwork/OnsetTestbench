@@ -5,6 +5,7 @@ import lombok.Getter;
 import net.onfirenetwork.testbench.Instance;
 import net.onfirenetwork.testbench.web.command.WebUICommand;
 import org.eclipse.jetty.websocket.api.Session;
+import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
@@ -52,16 +53,20 @@ public class WebUIEmulator {
 
     @OnWebSocketMessage
     public void onMessage(Session session, String json) {
-        Gson gson = new Gson();
-        JsonObject eventJson = gson.fromJson(json, JsonObject.class);
-        String eventName = eventJson.get("name").getAsString();
-        if (eventName.equals("callevent")) {
-            JsonArray paramsJson = eventJson.get("data").getAsJsonObject().get("params").getAsJsonArray();
-            LuaValue[] params = new LuaValue[paramsJson.size()];
-            for (int i = 0; i < params.length; i++) {
-                params[i] = luaFromJson(paramsJson.get(i));
+        try {
+            Gson gson = new Gson();
+            JsonObject eventJson = gson.fromJson(json, JsonObject.class);
+            String eventName = eventJson.get("name").getAsString();
+            if (eventName.equals("callevent")) {
+                JsonArray paramsJson = eventJson.get("data").getAsJsonObject().get("params").getAsJsonArray();
+                LuaValue[] params = new LuaValue[paramsJson.size()];
+                for (int i = 0; i < params.length; i++) {
+                    params[i] = luaFromJson(paramsJson.get(i));
+                }
+                listener.onEvent(eventJson.get("data").getAsJsonObject().get("name").getAsString(), params);
             }
-            listener.onEvent(eventJson.get("data").getAsJsonObject().get("name").getAsString(), params);
+        }catch (Exception ex){
+            ex.printStackTrace();
         }
     }
 
@@ -76,7 +81,22 @@ public class WebUIEmulator {
             return;
         }
         this.session = session;
-        listener.onReady();
+        try {
+            listener.onReady();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+    @OnWebSocketClose
+    public void onClose(Session session, int statusCode, String reason){
+        if(!session.equals(this.session))
+            return;
+        try {
+            listener.onClose();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     private LuaValue luaFromJson(JsonElement json){

@@ -11,13 +11,12 @@ import net.onfirenetwork.testbench.config.ServerConfig;
 import net.onfirenetwork.testbench.server.Server;
 import net.onfirenetwork.testbench.web.WebUIEmulator;
 import net.onfirenetwork.testbench.web.WebUIListener;
+import org.luaj.vm2.LuaInteger;
+import org.luaj.vm2.LuaString;
 import org.luaj.vm2.LuaValue;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
@@ -32,6 +31,8 @@ public class Instance {
     boolean exitRequested = false;
     @Setter
     WebUIEmulator emulator = null;
+    int nextPlayerId = 1;
+    boolean connectionRequestCancelled = false;
 
     public Instance(File configFile){
         config = InstanceConfig.load(configFile);
@@ -45,6 +46,11 @@ public class Instance {
             emulator = new WebUIEmulator(this, config.getUiPort(), new WebUIListener() {
                 public void onReady() {
                     internalStart();
+                }
+                public void onClose() {
+                    Client client = getClient(1);
+                    if(client == null)
+                        return;
                 }
                 public void onEvent(String name, LuaValue... params) {
                     if(getClients().size() > 0){
@@ -93,10 +99,29 @@ public class Instance {
     public Client join(String steamId, String username){
         if(!server.isStarted())
             return null;
-        Client client = new Client(this);
+        server.getLocalEventSystem().callEvent("OnClientConnectionRequest", LuaString.valueOf("127.0.0.1"), LuaInteger.valueOf(30000+(new Random()).nextInt(10000)));
+        if(connectionRequestCancelled){
+            connectionRequestCancelled = false;
+            return null;
+        }
+        int id = nextPlayerId;
+        nextPlayerId++;
+        Client client = new Client(this, id, username);
         clients.add(client);
+        server.getLocalEventSystem().callEvent("OnPlayerServerAuth", LuaInteger.valueOf(id));
+        client.getPlayer().auth(steamId);
+        server.getLocalEventSystem().callEvent("OnPlayerSteamAuth", LuaInteger.valueOf(id));
         new Thread(client::start).start();
+        server.getLocalEventSystem().callEvent("OnPlayerJoin", LuaInteger.valueOf(id));
         return client;
+    }
+
+    public Client getClient(int id){
+        for(Client client : clients){
+            if(client.getPlayer().getId() == id)
+                return client;
+        }
+        return null;
     }
 
 }

@@ -2,11 +2,10 @@ package net.onfirenetwork.testbench.server;
 
 import lombok.Getter;
 import net.onfirenetwork.testbench.Instance;
-import net.onfirenetwork.testbench.LocalEventSystem;
+import net.onfirenetwork.testbench.EventSystem;
 import net.onfirenetwork.testbench.server.plugin.MariaDBPlugin;
 import net.onfirenetwork.testbench.server.plugin.ServerPlugin;
 import org.luaj.vm2.LuaNumber;
-import org.luaj.vm2.LuaValue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +21,9 @@ public class Server {
     @Getter
     private boolean started = false;
     @Getter
-    private LocalEventSystem localEventSystem = new LocalEventSystem();
+    private EventSystem localEventSystem = new EventSystem();
+    @Getter
+    private EventSystem remoteEventSystem = new EventSystem();
 
     public Server(Instance instance){
         this.instance = instance;
@@ -45,6 +46,7 @@ public class Server {
         for(String packageName : instance.getServerConfig().getPackages()){
             packageMap.get(packageName).run();
         }
+        localEventSystem.callEvent("OnPackageStart");
     }
 
     public void stop(){
@@ -55,6 +57,7 @@ public class Server {
             }
             plugin.disable();
         }
+        localEventSystem.callEvent("OnPackageStop");
     }
 
     public void tick(float delta){
