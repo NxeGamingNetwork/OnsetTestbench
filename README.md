@@ -25,6 +25,7 @@ When the testbench is started in emulator mode it won't start directly. Instead 
 ## Implemented functions
 Even though every function that is documented in the Onset wiki exists, not all of them are implemented. Most of them just return a static value that might even not be of the correct data type. The following function were fully implemented and can be used safely.
 ### Server
+#### Onset
 - GetPackageName
 - ServerExit
 - AddEvent
@@ -34,7 +35,7 @@ Even though every function that is documented in the Onset wiki exists, not all 
 - GetAllPlayers
 - GetPlayerName
 - GetPlayerSteamId
-#### MariaDB Plugin
+#### MariaDB
 - mariadb_connect
 - mariadb_close
 - mariadb_prepare
