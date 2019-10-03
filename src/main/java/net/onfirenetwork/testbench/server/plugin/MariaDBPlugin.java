@@ -83,25 +83,27 @@ public class MariaDBPlugin implements ServerPlugin {
             nextResultId++;
             results.put(id, result);
             current = id;
-            LuaFunction callback = (LuaFunction) args.arg(3);
+            LuaFunction callback = args.isnil(3) ? null : (LuaFunction) args.arg(3);
             LuaTable varargs = args.arg(4).isnil()?new LuaTable():(LuaTable) args.arg(4);
             LuaValue[] pass = new LuaValue[varargs.length()];
             for(int i=1; i<=pass.length; i++){
                 pass[i-1] = varargs.get(i);
             }
-            switch (pass.length){
-                case 1:
-                    callback.call(pass[0]);
-                    break;
-                case 2:
-                    callback.call(pass[0], pass[1]);
-                    break;
-                case 3:
-                    callback.call(pass[0], pass[1], pass[2]);
-                    break;
-                default:
-                    callback.call();
-                    break;
+            if(callback != null){
+                switch (pass.length){
+                    case 1:
+                        callback.call(pass[0]);
+                        break;
+                    case 2:
+                        callback.call(pass[0], pass[1]);
+                        break;
+                    case 3:
+                        callback.call(pass[0], pass[1], pass[2]);
+                        break;
+                    default:
+                        callback.call();
+                        break;
+                }
             }
             current = 0;
             results.remove((Integer) id);
